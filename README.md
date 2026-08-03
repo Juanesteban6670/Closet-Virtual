@@ -23,6 +23,26 @@ Backend: `cd backend`, create and activate a Python 3.13 virtual environment, th
 
 Frontend: `cd frontend && npm install && npm run dev`.
 
+### Database migrations
+
+Run `cd backend && alembic upgrade head` after configuring `backend/.env`. Docker Compose runs migrations automatically before starting the API.
+
+## Authentication
+
+Register a user and sign in from the frontend. The API returns a short-lived access token and writes the refresh token as an HTTP-only cookie. The browser client persists the access token and silently rotates it through the cookie when a protected request receives a 401 response.
+
+Set `VIRTUAL_CLOSET_JWT_SECRET_KEY` to a strong, unique secret and set `VIRTUAL_CLOSET_COOKIE_SECURE=true` in production. Configure `VIRTUAL_CLOSET_CORS_ORIGINS` with the deployed frontend origin.
+
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| POST | `/api/v1/auth/register` | Create an account with a strong password. |
+| POST | `/api/v1/auth/login` | Authenticate and set the refresh-token cookie. |
+| POST | `/api/v1/auth/refresh` | Rotate the refresh token and receive a new access token. |
+| POST | `/api/v1/auth/logout` | Revoke the active refresh token and clear its cookie. |
+| GET | `/api/v1/users/me` | Retrieve the authenticated user's profile. |
+
+Use `Authorization: Bearer <access_token>` for protected endpoints.
+
 ## Quality checks
 
 Run `ruff check . && black --check .` in `backend`, and `npm run lint && npm run format:check` in `frontend`.

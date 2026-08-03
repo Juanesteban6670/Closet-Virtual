@@ -15,10 +15,10 @@ services:
   backend:
     build: ./backend
     environment:
-      APP_ENV: development
-      DATABASE_URL: postgresql+psycopg://virtual-closet:virtual-closet@database:5432/virtual_closet
-      CORS_ORIGINS: '["http://localhost:5173"]'
-      JWT_SECRET_KEY: local-development-secret-change-me
+      VIRTUAL_CLOSET_APP_ENV: development
+      VIRTUAL_CLOSET_DATABASE_URL: postgresql+psycopg://virtual-closet:virtual-closet@database:5432/virtual_closet
+      VIRTUAL_CLOSET_CORS_ORIGINS: '["http://localhost:5173"]'
+      VIRTUAL_CLOSET_JWT_SECRET_KEY: local-development-secret-change-me
     ports: ["8000:8000"]
     depends_on:
       database:
