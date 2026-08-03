@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme { --font-sans: Inter, ui-sans-serif, system-ui, sans-serif; }
+
+@layer components {
+  .button-primary { @apply rounded-lg bg-indigo-600 px-4 py-2.5 font-medium text-white transition hover:bg-indigo-500; }
+  .button-secondary { @apply rounded-lg border border-slate-300 px-4 py-2.5 font-medium transition hover:bg-slate-100; }
+  .auth-page { @apply grid min-h-screen place-items-center bg-slate-50 px-6; }
+  .auth-card { @apply w-full max-w-md rounded-xl bg-white p-8 shadow-sm ring-1 ring-slate-200; }
+  .auth-card h1 { @apply text-2xl font-bold; }
+  .auth-card p { @apply mt-3 text-slate-600; }
+  .auth-card a { @apply mt-6 inline-block font-medium text-indigo-600 hover:text-indigo-500; }
+}

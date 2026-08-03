@@ -1,0 +1,38 @@
+services:
+  database:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-virtual_closet}
+      POSTGRES_USER: ${POSTGRES_USER:-virtual-closet}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-virtual-closet}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  backend:
+    build: ./backend
+    environment:
+      APP_ENV: development
+      DATABASE_URL: postgresql+psycopg://virtual-closet:virtual-closet@database:5432/virtual_closet
+      CORS_ORIGINS: '["http://localhost:5173"]'
+      JWT_SECRET_KEY: local-development-secret-change-me
+    ports: ["8000:8000"]
+    depends_on:
+      database:
+        condition: service_healthy
+  frontend:
+    build:
+      context: ./frontend
+      target: development
+    environment:
+      VITE_API_BASE_URL: http://localhost:8000/api/v1
+    ports: ["5173:5173"]
+    depends_on: [backend]
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+volumes:
+  postgres_data:

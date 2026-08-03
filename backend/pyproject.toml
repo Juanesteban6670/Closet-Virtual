@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "virtual-closet-api"
+version = "0.1.0"
+description = "Virtual Closet API"
+requires-python = ">=3.13"
+dependencies = [
+  "alembic>=1.14,<2.0", "fastapi>=0.115,<1.0", "passlib[bcrypt]>=1.7,<2.0",
+  "pillow>=11.0,<12.0", "psycopg[binary]>=3.2,<4.0", "pydantic-settings>=2.6,<3.0",
+  "PyJWT>=2.10,<3.0", "rembg>=2.0,<3.0", "sqlalchemy>=2.0,<3.0", "uvicorn[standard]>=0.32,<1.0"
+]
+
+[project.optional-dependencies]
+dev = ["black>=24.10,<26.0", "httpx>=0.28,<1.0", "pytest>=8.3,<9.0", "ruff>=0.8,<1.0"]
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.black]
+line-length = 88
+target-version = ["py313"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 88
+extend-exclude = ["alembic/versions"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
