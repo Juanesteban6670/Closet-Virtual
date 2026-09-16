@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Closet Virtual</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Mi Closet Virtual 👗👕</h1>
+        <p>Crea tus outfits desde el celular</p>
+    </header>
+
+    <main class="container">
+        <!-- Panel Izquierdo: Controles, Consejos y Subida -->
+        <section class="panel-control">
+            <!-- Tarjeta de Consejos para Fotos -->
+            <div class="card card-consejos">
+                <h2>📸 Tips para mejores resultados</h2>
+                <ul>
+                    <li><strong>Fondo liso:</strong> Toma fotos frente a una pared blanca. El sistema quitará el fondo automáticamente.</li>
+                    <li><strong>Buena luz:</strong> Usa luz natural para evitar sombras oscuras.</li>
+                    <li><strong>Cuerpo entero:</strong> Ponte de pie y toma la foto de cuerpo entero o medio cuerpo.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>1. Tu Foto de Modelo</h2>
+                <input type="file" id="input-modelo" accept="image/*">
+            </div>
+
+            <div class="card">
+                <h2>2. Agregar Prenda</h2>
+                <input type="text" id="nombre-prenda" placeholder="Ej. Camisa negra">
+                <select id="categoria-prenda">
+                    <option value="superior">Parte Superior</option>
+                    <option value="inferior">Parte Inferior</option>
+                    <option value="calzado">Calzado</option>
+                    <option value="accesorios">Accesorio</option>
+                </select>
+                <input type="file" id="input-prenda" accept="image/*">
+                <button id="btn-agregar">Añadir al Armario</button>
+            </div>
+
+            <div class="card armario-container">
+                <h2>3. Tu Armario</h2>
+                <div id="grid-armario" class="grid-armario">
+                    <!-- Las prendas subidas aparecerán aquí -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Panel Derecho: El Probador (Canvas / Modelo) -->
+        <section class="panel-probador">
+            <h2>Probador Virtual</h2>
+            <div id="probador-canvas" class="probador-canvas">
+                <div id="placeholder-modelo" class="placeholder-modelo">
+                    Sube tu foto de modelo para empezar
+                </div>
+            </div>
+            <button id="btn-limpiar" class="btn-secundario">Limpiar Outfit</button>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: #f4f7f6;
+    color: #333;
+    padding: 10px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 3px;
+}
+
+header p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.panel-control, .panel-probador {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.panel-probador {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    align-items: center;
+}
+
+.card {
+    background: white;
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.card-consejos {
+    background: #eaf2f8;
+    border-left: 4px solid #3498db;
+}
+
+.card-consejos h2 {
+    color: #2980b9;
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+}
+
+.card-consejos ul {
+    padding-left: 16px;
+    font-size: 0.85rem;
+    color: #34495e;
+    line-height: 1.3;
+}
+
+.card-consejos li {
+    margin-bottom: 4px;
+}
+
+.card h2, .panel-probador h2 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: #34495e;
+}
+
+input[type="text"], select, input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.btn-secundario {
+    background-color: #e74c3c;
+    margin-top: 10px;
+}
+
+.grid-armario {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+    gap: 8px;
+    max-height: 160px;
+    overflow-y: auto;
+    padding: 4px;
+}
+
+.miniatura-prenda {
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.probador-canvas {
+    position: relative;
+    width: 100%;
+    height: 380px;
+    background-color: #fafafa;
+    border: 2px dashed #bdc3c7;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.placeholder-modelo {
+    color: #7f8c8d;
+    text-align: center;
+    padding: 15px;
+    font-size: 0.9rem;
+}
+
+#img-modelo-canvas {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.prenda-en-modelo {
+    position: absolute;
+    width: 110px;
+    cursor: grab;
+    z-index: 2;
+    touch-action: none; /* Crucial para evitar que el celular mueva la página entera al arrastrar la ropa */
+    filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.2));
+}
+
+/* Escritorio (Pantallas más grandes) */
+@media (min-width: 768px) {
+    .container {
+        flex-direction: row;
+        max-width: 1100px;
+    }
+    .panel-control, .panel-probador {
+        flex: 1;
+    }
+    body {
+        padding: 20px;
+    }
+}
