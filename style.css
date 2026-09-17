@@ -56,6 +56,7 @@ header p {
     padding: 12px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .card-consejos {
@@ -112,6 +113,12 @@ button {
     margin-top: 10px;
 }
 
+.btn-secundario-pequenio {
+    background-color: #95a5a6;
+    padding: 10px;
+    font-size: 0.9rem;
+}
+
 .grid-armario {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
@@ -165,11 +172,84 @@ button {
     width: 110px;
     cursor: grab;
     z-index: 2;
-    touch-action: none; /* Crucial para evitar que el celular mueva la página entera al arrastrar la ropa */
+    touch-action: none;
     filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.2));
 }
 
-/* Escritorio (Pantallas más grandes) */
+/* --- ESTILOS DEL TUTORIAL INTERACTIVO --- */
+.tutorial-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.tutorial-card {
+    background: white;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.tutorial-badge {
+    display: inline-block;
+    background: #eaf2f8;
+    color: #2980b9;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.tutorial-card h2 {
+    color: #2c3e50;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+}
+
+.tutorial-card p {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+.tutorial-botones {
+    display: flex;
+    gap: 10px;
+}
+
+.tutorial-botones button {
+    flex: 1;
+}
+
+/* Efecto destacado (Highlighter) para el tutorial guiado */
+.highlight-step {
+    box-shadow: 0 0 0 4px #3498db, 0 8px 25px rgba(52, 152, 219, 0.4) !important;
+    transform: scale(1.02);
+    position: relative;
+    z-index: 1001;
+    background: #fff !important;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Escritorio */
 @media (min-width: 768px) {
     .container {
         flex-direction: row;

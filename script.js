@@ -10,6 +10,91 @@ const btnAgregar = document.getElementById('btn-agregar');
 const gridArmario = document.getElementById('grid-armario');
 const btnLimpiar = document.getElementById('btn-limpiar');
 
+// Elementos del Tutorial
+const tutorialOverlay = document.getElementById('tutorial-overlay');
+const tutorialPasoNum = document.getElementById('tutorial-paso-num');
+const tutorialTitulo = document.getElementById('tutorial-titulo');
+const tutorialTexto = document.getElementById('tutorial-texto');
+const btnSiguiente = document.getElementById('btn-siguiente');
+const btnSaltar = document.getElementById('btn-saltar');
+
+const stepModelo = document.getElementById('step-modelo');
+const stepPrenda = document.getElementById('step-prenda');
+const stepArmario = document.getElementById('step-armario');
+const stepProbador = document.getElementById('step-probador');
+
+let pasoActual = 1;
+
+const pasosTutorial = [
+    {
+        num: "Paso 1 de 4",
+        titulo: "Sube tu Foto de Modelo 🧍",
+        texto: "Aquí debes subir una foto tuya de cuerpo entero o medio cuerpo. El sistema le quitará el fondo automáticamente.",
+        elemento: stepModelo
+    },
+    {
+        num: "Paso 2 de 4",
+        titulo: "Agrega tus Prendas 👕",
+        texto: "Escribe el nombre de tu prenda, elige la categoría y sube su foto. ¡También se le borrará el fondo de forma automática!",
+        elemento: stepPrenda
+    },
+    {
+        num: "Paso 3 de 4",
+        titulo: "Tu Armario Digital 🧥",
+        texto: "Todas las prendas que subas se guardarán aquí en forma de miniatura. Solo tócalas para ponértelas.",
+        elemento: stepArmario
+    },
+    {
+        num: "Paso 4 de 4",
+        titulo: "El Probador Virtual ✨",
+        texto: "Aquí aparecerá tu foto y las prendas que selecciones. Podrás arrastrarlas con el dedo o el mouse para armar tu outfit perfecto.",
+        elemento: stepProbador
+    }
+];
+
+function actualizarTutorial() {
+    // Remover brillo anterior
+    document.querySelectorAll('.highlight-step').forEach(el => el.classList.remove('highlight-step'));
+
+    if (pasoActual <= pasosTutorial.length) {
+        const current = pasosTutorial[pasoActual - 1];
+        tutorialPasoNum.textContent = current.num;
+        tutorialTitulo.textContent = current.titulo;
+        tutorialTexto.textContent = current.texto;
+        
+        // Destacar visualmente el elemento enfocado
+        current.elemento.classList.add('highlight-step');
+        current.elemento.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        if (pasoActual === pasosTutorial.length) {
+            btnSiguiente.textContent = "¡Comenzar a usar!";
+        } else {
+            btnSiguiente.textContent = "Siguiente";
+        }
+    } else {
+        cerrarTutorial();
+    }
+}
+
+function cerrarTutorial() {
+    document.querySelectorAll('.highlight-step').forEach(el => el.classList.remove('highlight-step'));
+    tutorialOverlay.style.display = 'none';
+}
+
+btnSiguiente.addEventListener('click', () => {
+    pasoActual++;
+    actualizarTutorial();
+});
+
+btnSaltar.addEventListener('click', () => {
+    cerrarTutorial();
+});
+
+// Iniciar tutorial al cargar la página
+window.addEventListener('DOMContentLoaded', () => {
+    actualizarTutorial();
+});
+
 // Función automática para remover fondo por tolerancia de color
 function quitarFondoAutomatico(file, callback) {
     const reader = new FileReader();
@@ -41,7 +126,7 @@ function quitarFondoAutomatico(file, callback) {
                     Math.abs(g - gFondo) < tolerancia &&
                     Math.abs(b - bFondo) < tolerancia
                 ) {
-                    data[i + 3] = 0; // Transparente
+                    data[i + 3] = 0;
                 }
             }
 
@@ -100,7 +185,7 @@ btnAgregar.addEventListener('click', () => {
     });
 });
 
-// Colocar prenda con soporte táctil (Móvil) y Mouse (Escritorio)
+// Colocar prenda con soporte táctil y de ratón
 function colocarPrendaEnModelo(url, nombre) {
     const prendaCanvas = document.createElement('img');
     prendaCanvas.src = url;
@@ -114,7 +199,6 @@ function colocarPrendaEnModelo(url, nombre) {
     let startX, startY;
     let initialLeft, initialTop;
 
-    // --- EVENTOS TÁCTILES (MÓVILES) ---
     prendaCanvas.addEventListener('touchstart', (e) => {
         isDragging = true;
         const touch = e.touches[0];
@@ -138,7 +222,6 @@ function colocarPrendaEnModelo(url, nombre) {
         isDragging = false;
     });
 
-    // --- EVENTOS DE RATÓN (PC / COMPATIBILIDAD) ---
     prendaCanvas.addEventListener('mousedown', (e) => {
         isDragging = true;
         startX = e.clientX - prendaCanvas.offsetLeft;
