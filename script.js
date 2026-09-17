@@ -55,7 +55,10 @@ const pasosTutorial = [
 ];
 
 function actualizarTutorial() {
-    document.querySelectorAll('.highlight-step').forEach(el => el.classList.remove('highlight-step'));
+    // 1. Limpiar todos los brillos anteriores de los elementos
+    [stepModelo, stepPrenda, stepArmario, stepProbador].forEach(el => {
+        if (el) el.classList.remove('highlight-step');
+    });
 
     if (pasoActual <= pasosTutorial.length) {
         const current = pasosTutorial[pasoActual - 1];
@@ -63,8 +66,11 @@ function actualizarTutorial() {
         tutorialTitulo.textContent = current.titulo;
         tutorialTexto.textContent = current.texto;
         
-        current.elemento.classList.add('highlight-step');
-        current.elemento.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // 2. Aplicar brillo únicamente al paso activo actual
+        if (current.elemento) {
+            current.elemento.classList.add('highlight-step');
+            current.elemento.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
 
         if (pasoActual === pasosTutorial.length) {
             btnSiguiente.textContent = "¡A crear outfits! 💖";
@@ -77,18 +83,23 @@ function actualizarTutorial() {
 }
 
 function cerrarTutorial() {
-    document.querySelectorAll('.highlight-step').forEach(el => el.classList.remove('highlight-step'));
-    tutorialOverlay.style.display = 'none';
+    [stepModelo, stepPrenda, stepArmario, stepProbador].forEach(el => {
+        if (el) el.classList.remove('highlight-step');
+    });
+    if (tutorialOverlay) {
+        tutorialOverlay.style.display = 'none';
+    }
 }
 
-btnSiguiente.addEventListener('click', () => {
+// Evento limpio para avanzar sin duplicar capas
+btnSiguiente.onclick = function() {
     pasoActual++;
     actualizarTutorial();
-});
+};
 
-btnSaltar.addEventListener('click', () => {
+btnSaltar.onclick = function() {
     cerrarTutorial();
-});
+};
 
 window.addEventListener('DOMContentLoaded', () => {
     actualizarTutorial();
@@ -171,7 +182,6 @@ btnAgregar.addEventListener('click', () => {
         contadorPrendas++;
         tituloArmario.textContent = `3. Tu Armario (${contadorPrendas} prendas) 👗`;
 
-        // Contenedor para la miniatura y su botón de borrar
         const wrapper = document.createElement('div');
         wrapper.className = 'item-armario-wrapper';
 
@@ -180,7 +190,6 @@ btnAgregar.addEventListener('click', () => {
         imgMiniatura.className = 'miniatura-prenda';
         imgMiniatura.title = nombre;
 
-        // Botón para eliminar prenda del armario
         const btnEliminar = document.createElement('button');
         btnEliminar.className = 'btn-eliminar-prenda';
         btnEliminar.textContent = '✕';
@@ -192,7 +201,6 @@ btnAgregar.addEventListener('click', () => {
             tituloArmario.textContent = `3. Tu Armario (${contadorPrendas} prendas) 👗`;
         });
 
-        // Evento para ponérsela al modelo al hacer clic en la miniatura
         imgMiniatura.addEventListener('click', () => {
             colocarPrendaEnModelo(processedImageUrl, nombre);
         });
@@ -207,7 +215,7 @@ btnAgregar.addEventListener('click', () => {
 });
 
 // Colocar prenda con soporte táctil y de ratón
-function colocarPrendaEnmodelo(url, nombre) {
+function colocarPrendaEnModelo(url, nombre) {
     const prendaCanvas = document.createElement('img');
     prendaCanvas.src = url;
     prendaCanvas.className = 'prenda-en-modelo';
