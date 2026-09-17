@@ -8,9 +8,10 @@ const nombrePrenda = document.getElementById('nombre-prenda');
 const categoriaPrenda = document.getElementById('categoria-prenda');
 const btnAgregar = document.getElementById('btn-agregar');
 const gridArmario = document.getElementById('grid-armario');
+const tituloArmario = document.getElementById('titulo-armario');
 const btnLimpiar = document.getElementById('btn-limpiar');
 
-// Elementos del Tutorial
+// Elementos del Tutorial Rosita
 const tutorialOverlay = document.getElementById('tutorial-overlay');
 const tutorialPasoNum = document.getElementById('tutorial-paso-num');
 const tutorialTitulo = document.getElementById('tutorial-titulo');
@@ -24,36 +25,36 @@ const stepArmario = document.getElementById('step-armario');
 const stepProbador = document.getElementById('step-probador');
 
 let pasoActual = 1;
+let contadorPrendas = 0;
 
 const pasosTutorial = [
     {
         num: "Paso 1 de 4",
-        titulo: "Sube tu Foto de Modelo 🧍",
-        texto: "Aquí debes subir una foto tuya de cuerpo entero o medio cuerpo. El sistema le quitará el fondo automáticamente.",
+        titulo: "Tu Foto de Modelo 🪞",
+        texto: "Sube una foto tuya bonita de cuerpo entero o medio cuerpo. ¡El fondo se borrará solito!",
         elemento: stepModelo
     },
     {
         num: "Paso 2 de 4",
-        titulo: "Agrega tus Prendas 👕",
-        texto: "Escribe el nombre de tu prenda, elige la categoría y sube su foto. ¡También se le borrará el fondo de forma automática!",
+        titulo: "Agrega tus Prendas 🛍️",
+        texto: "Escribe el nombre de tu ropita, elige su categoría y sube su foto para guardarla en tu closet.",
         elemento: stepPrenda
     },
     {
         num: "Paso 3 de 4",
-        titulo: "Tu Armario Digital 🧥",
-        texto: "Todas las prendas que subas se guardarán aquí en forma de miniatura. Solo tócalas para ponértelas.",
+        titulo: "Tu Armario Mágico 👗",
+        texto: "Aquí se guardarán todas tus prendas ordenadas. ¡Solo tócalas para ponértelas en el maniquí!",
         elemento: stepArmario
     },
     {
         num: "Paso 4 de 4",
         titulo: "El Probador Virtual ✨",
-        texto: "Aquí aparecerá tu foto y las prendas que selecciones. Podrás arrastrarlas con el dedo o el mouse para armar tu outfit perfecto.",
+        texto: "Aquí podrás ver tu look completo y arrastrar la ropita con tu dedo para acomodarla perfecta.",
         elemento: stepProbador
     }
 ];
 
 function actualizarTutorial() {
-    // Remover brillo anterior
     document.querySelectorAll('.highlight-step').forEach(el => el.classList.remove('highlight-step'));
 
     if (pasoActual <= pasosTutorial.length) {
@@ -62,14 +63,13 @@ function actualizarTutorial() {
         tutorialTitulo.textContent = current.titulo;
         tutorialTexto.textContent = current.texto;
         
-        // Destacar visualmente el elemento enfocado
         current.elemento.classList.add('highlight-step');
         current.elemento.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
         if (pasoActual === pasosTutorial.length) {
-            btnSiguiente.textContent = "¡Comenzar a usar!";
+            btnSiguiente.textContent = "¡A crear outfits! 💖";
         } else {
-            btnSiguiente.textContent = "Siguiente";
+            btnSiguiente.textContent = "¡Siguiente! 💖";
         }
     } else {
         cerrarTutorial();
@@ -90,7 +90,6 @@ btnSaltar.addEventListener('click', () => {
     cerrarTutorial();
 });
 
-// Iniciar tutorial al cargar la página
 window.addEventListener('DOMContentLoaded', () => {
     actualizarTutorial();
 });
@@ -158,27 +157,49 @@ inputModelo.addEventListener('change', (e) => {
     }
 });
 
-// Agregar prenda al armario
+// Agregar prenda al armario con contador y botón de eliminar
 btnAgregar.addEventListener('click', () => {
     const nombre = nombrePrenda.value.trim();
     const file = inputPrenda.files[0];
 
     if (!nombre || !file) {
-        alert("Por favor ingresa un nombre y selecciona una foto para la prenda.");
+        alert("¡Por favor ingresa un nombre y selecciona una fotito para la prenda! 🌸");
         return;
     }
 
     quitarFondoAutomatico(file, (processedImageUrl) => {
+        contadorPrendas++;
+        tituloArmario.textContent = `3. Tu Armario (${contadorPrendas} prendas) 👗`;
+
+        // Contenedor para la miniatura y su botón de borrar
+        const wrapper = document.createElement('div');
+        wrapper.className = 'item-armario-wrapper';
+
         const imgMiniatura = document.createElement('img');
         imgMiniatura.src = processedImageUrl;
         imgMiniatura.className = 'miniatura-prenda';
         imgMiniatura.title = nombre;
 
+        // Botón para eliminar prenda del armario
+        const btnEliminar = document.createElement('button');
+        btnEliminar.className = 'btn-eliminar-prenda';
+        btnEliminar.textContent = '✕';
+        btnEliminar.title = 'Eliminar prenda';
+        btnEliminar.addEventListener('click', (e) => {
+            e.stopPropagation();
+            wrapper.remove();
+            contadorPrendas = Math.max(0, contadorPrendas - 1);
+            tituloArmario.textContent = `3. Tu Armario (${contadorPrendas} prendas) 👗`;
+        });
+
+        // Evento para ponérsela al modelo al hacer clic en la miniatura
         imgMiniatura.addEventListener('click', () => {
             colocarPrendaEnModelo(processedImageUrl, nombre);
         });
 
-        gridArmario.appendChild(imgMiniatura);
+        wrapper.appendChild(imgMiniatura);
+        wrapper.appendChild(btnEliminar);
+        gridArmario.appendChild(wrapper);
 
         nombrePrenda.value = '';
         inputPrenda.value = '';
@@ -186,7 +207,7 @@ btnAgregar.addEventListener('click', () => {
 });
 
 // Colocar prenda con soporte táctil y de ratón
-function colocarPrendaEnModelo(url, nombre) {
+function colocarPrendaEnmodelo(url, nombre) {
     const prendaCanvas = document.createElement('img');
     prendaCanvas.src = url;
     prendaCanvas.className = 'prenda-en-modelo';

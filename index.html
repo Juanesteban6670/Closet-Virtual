@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Closet Virtual</title>
+    <title>Mi Closet Mágico 🎀</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,68 +12,68 @@
     <div id="tutorial-overlay" class="tutorial-overlay">
         <div class="tutorial-card">
             <span id="tutorial-paso-num" class="tutorial-badge">Paso 1 de 4</span>
-            <h2 id="tutorial-titulo">¡Bienvenido a tu Closet Virtual! 👗</h2>
-            <p id="tutorial-texto">Aquí podrás crear tus propios outfits digitales usando tus propias fotos. Vamos a dar un rápido recorrido para enseñarte cómo usarlo.</p>
+            <h2 id="tutorial-titulo">¡Bienvenida a tu Closet Mágico! 🎀</h2>
+            <p id="tutorial-texto">Crea los outfits más hermosos con tus propias fotos. ¡Te enseñaremos a usarlo en un segundo!</p>
             <div class="tutorial-botones">
                 <button id="btn-saltar" class="btn-secundario-pequenio">Saltar tutorial</button>
-                <button id="btn-siguiente">Siguiente</button>
+                <button id="btn-siguiente">¡Siguiente! 💖</button>
             </div>
         </div>
     </div>
 
     <header>
-        <h1>Mi Closet Virtual 👗👕</h1>
-        <p>Crea tus outfits desde el celular</p>
+        <h1>Mi Closet Mágico 🌸✨</h1>
+        <p>Crea tus outfits y combina tu ropita favorita</p>
     </header>
 
     <main class="container">
-        <!-- Panel Izquierdo: Controles, Consejos y Subida -->
+        <!-- Panel Izquierdo: Controles y Subida -->
         <section class="panel-control">
             <!-- Tarjeta de Consejos para Fotos -->
             <div class="card card-consejos">
-                <h2>📸 Tips para mejores resultados</h2>
+                <h2>📸 Tips para fotos perfectas</h2>
                 <ul>
-                    <li><strong>Fondo liso:</strong> Toma fotos frente a una pared blanca. El sistema quitará el fondo automáticamente.</li>
-                    <li><strong>Buena luz:</strong> Usa luz natural para evitar sombras oscuras.</li>
-                    <li><strong>Cuerpo entero:</strong> Ponte de pie y toma la foto de cuerpo entero o medio cuerpo.</li>
+                    <li><strong>Fondo liso:</strong> Toma tus fotos frente a una pared blanca o clara. El sistema borrará el fondo solito.</li>
+                    <li><strong>Buena luz:</strong> Procura tener luz natural de día para que los colores resalten hermosos.</li>
+                    <li><strong>Cuerpo entero:</strong> Para tu modelo, ponte de pie y sonríe de frente.</li>
                 </ul>
             </div>
 
             <div id="step-modelo" class="card">
-                <h2>1. Tu Foto de Modelo</h2>
+                <h2>1. Tu Foto de Modelo 🪞</h2>
                 <input type="file" id="input-modelo" accept="image/*">
             </div>
 
             <div id="step-prenda" class="card">
-                <h2>2. Agregar Prenda</h2>
-                <input type="text" id="nombre-prenda" placeholder="Ej. Camisa negra">
+                <h2>2. Agregar Prenda 🛍️</h2>
+                <input type="text" id="nombre-prenda" placeholder="Ej. Vestido rosa brillante">
                 <select id="categoria-prenda">
-                    <option value="superior">Parte Superior</option>
-                    <option value="inferior">Parte Inferior</option>
-                    <option value="calzado">Calzado</option>
-                    <option value="accesorios">Accesorio</option>
+                    <option value="superior">Parte Superior 👚</option>
+                    <option value="inferior">Parte Inferior 👗</option>
+                    <option value="calzado">Calzado 👠</option>
+                    <option value="accesorios">Accesorio 🎀</option>
                 </select>
                 <input type="file" id="input-prenda" accept="image/*">
-                <button id="btn-agregar">Añadir al Armario</button>
+                <button id="btn-agregar">Añadir a mi Armario ✨</button>
             </div>
 
             <div id="step-armario" class="card armario-container">
-                <h2>3. Tu Armario</h2>
+                <h2 id="titulo-armario">3. Tu Armario (0 prendas) 👗</h2>
                 <div id="grid-armario" class="grid-armario">
                     <!-- Las prendas subidas aparecerán aquí -->
                 </div>
             </div>
         </section>
 
-        <!-- Panel Derecho: El Probador (Canvas / Modelo) -->
+        <!-- Panel Derecho: El Probador -->
         <section class="panel-probador">
-            <h2>Probador Virtual</h2>
+            <h2>Probador Virtual 💕</h2>
             <div id="step-probador" class="probador-canvas">
                 <div id="placeholder-modelo" class="placeholder-modelo">
-                    Sube tu foto de modelo para empezar
+                    Sube tu foto de modelo aquí para empezar a armar tus looks 💖
                 </div>
             </div>
-            <button id="btn-limpiar" class="btn-secundario">Limpiar Outfit</button>
+            <button id="btn-limpiar" class="btn-secundario">Limpiar Outfit 🧹</button>
         </section>
     </main>
 
